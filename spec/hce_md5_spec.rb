@@ -1,5 +1,8 @@
 # encoding: utf-8
 
+require "codeclimate-test-reporter"
+CodeClimate::TestReporter.start
+
 require 'hce_md5'
 
 describe HCE_MD5 do
