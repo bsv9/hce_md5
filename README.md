@@ -3,7 +3,6 @@ HCE_MD5
 
 Class to emulate Perl's Crypt::HCE_MD5 module
 
-
 The MIME Functions are tested and work symmetrically with the
 Crypt::HCE_MD5 package (0.45) (without the KEYBUG Flag ..).
 Shamelessly stolen from Eric Estabrooks, eric@urbanrage.com
@@ -13,7 +12,6 @@ This package implements a chaining block cipher using a one way
 hash. This method of encryption is the same that is used by radius
 (RFC2138) and is also described in Applied Cryptography by Bruce
 Schneider (p. 353 / "Karn").
-
 
 The idea is the the two sides have a shared secret that supplies one
 of the keys and a randomly generated block of bytes provides the
