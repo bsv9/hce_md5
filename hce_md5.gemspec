@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
                   'using a one wayhash. This method of encryption is '\
                   'the same that is used by radius (RFC2138) and is also '\
                   'described in Applied Cryptography by Bruce Schneider '\
-                  '(p. 353 / "Karn"'
+                  '(p. 353 / "Karn")'
   s.license     = 'MIT'
 
   # s.rubyforge_project = 'hce_md5'
