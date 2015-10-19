@@ -8,4 +8,4 @@ RSpec::Core::RakeTask.new(:spec) do |spec|
   spec.rspec_opts = ['--color', '--backtrace']
 end
 
-task default: :test
+task default: :spec
