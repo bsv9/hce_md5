@@ -1,0 +1,17 @@
+# This is the configuration used to check the rubocop source code.
+
+
+Style/Encoding:
+  Enabled: true
+
+ClassAndModuleCamelCase:
+  Enabled: false
+
+MethodLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Documentation:
+  Enabled: false
