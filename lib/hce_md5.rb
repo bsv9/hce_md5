@@ -58,7 +58,7 @@ class HCE_MD5
           ans[i - 8], ans[i - 7], ans[i - 6], ans[i - 5],
           ans[i - 4], ans[i - 3], ans[i - 2], ans[i - 1]
         ]
-        tmparr = tmparr.collect { |val| val.to_s.chr }.join('')
+        tmparr = array2pack(tmparr)
         e_block = new_key(tmparr)
       end
       ans[i]  = e_block[mod] ^ data[i]
@@ -85,7 +85,7 @@ class HCE_MD5
           data[i - 8], data[i - 7], data[i - 6], data[i - 5],
           data[i - 4], data[i - 3], data[i - 2], data[i - 1]
         ]
-        tmparr  = tmparr.collect { |val| val.to_s.chr }.join('')
+        tmparr  = array2pack(tmparr)
         e_block = new_key(tmparr)
       end
       ans[i]  = e_block[mod] ^ data[i]
@@ -95,6 +95,12 @@ class HCE_MD5
   end
 
   private
+
+  # Turn an array into a binary packed string.
+
+  def array2pack(array)
+    array.compact.collect { |val| [val].pack('C*') }.join('')
+  end
 
   # Implment md5 hashing in php, though use the mhash() function
   # if it is available.
