@@ -4,7 +4,7 @@ require 'hce_md5/version'
 require 'digest'
 
 ##
-# Class to emulate Perl's Crypt::HCE_MD5 module
+# Ruby class to emulate Perl's Crypt::HCE_MD5 module
 #
 # The MIME Functions are tested and work symmetrically with the
 # Crypt::HCE_MD5 package (0.45) (without the KEYBUG Flag ..).
@@ -52,14 +52,7 @@ class HCE_MD5
     data.each_index do |i|
       mod = i % 16
       if (mod == 0) && (i > 15)
-        tmparr = [
-          ans[i - 16], ans[i - 15], ans[i - 14], ans[i - 13],
-          ans[i - 12], ans[i - 11], ans[i - 10], ans[i - 9],
-          ans[i - 8], ans[i - 7], ans[i - 6], ans[i - 5],
-          ans[i - 4], ans[i - 3], ans[i - 2], ans[i - 1]
-        ]
-        tmparr = array2pack(tmparr)
-        e_block = new_key(tmparr)
+        e_block = new_key(array2pack(16.downto(1).collect { |j| ans[i - j] }))
       end
       ans[i]  = e_block[mod] ^ data[i]
       ans1[i] = ans[i].chr
@@ -79,14 +72,7 @@ class HCE_MD5
     data.each_index do |i|
       mod = i % 16
       if (mod == 0) && (i > 15)
-        tmparr = [
-          data[i - 16], data[i - 15], data[i - 14], data[i - 13],
-          data[i - 12], data[i - 11], data[i - 10], data[i - 9],
-          data[i - 8], data[i - 7], data[i - 6], data[i - 5],
-          data[i - 4], data[i - 3], data[i - 2], data[i - 1]
-        ]
-        tmparr  = array2pack(tmparr)
-        e_block = new_key(tmparr)
+        e_block = new_key(array2pack(16.downto(1).collect { |j| data[i - j] }))
       end
       ans[i]  = e_block[mod] ^ data[i]
       ans1[i] = ans[i].chr
