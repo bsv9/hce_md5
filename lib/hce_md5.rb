@@ -45,19 +45,7 @@ class HCE_MD5
   # @param data [String] The data to encrypt.
   # @return [String] The encrypted binary data.
   def encrypt(data)
-    data = data.unpack('C*')
-    ans = []
-    ans1 = []
-    e_block = new_key(@rand)
-    data.each_index do |i|
-      mod = i % 16
-      if (mod == 0) && (i > 15)
-        e_block = new_key(array2pack(16.downto(1).collect { |j| ans[i - j] }))
-      end
-      ans[i]  = e_block[mod] ^ data[i]
-      ans1[i] = ans[i].chr
-    end
-    ans1.join('')
+    process(data.unpack('C*'), :encrypt)
   end
 
   # Decrypt a block of data.
@@ -65,25 +53,38 @@ class HCE_MD5
   # @param data [String] The data to decrypt.
   # @return [String] The decrypted binary data.
   def decrypt(data)
-    data = data.unpack('C*')
+    process(data.unpack('C*'), :decrypt)
+  end
+
+  private
+
+  # Decode or encode binary string
+  #
+  # @param data [Array] The array to process
+  # @param op [Symbol] Operation encrypt|decrypt
+  # @return [String] The binary packed representation of the array.
+  def process(data, op = :encrypt)
     ans = []
     ans1 = []
-    e_block = new_key(@rand)
+    e_block = newkey(@rand)
     data.each_index do |i|
-      mod = i % 16
-      if (mod == 0) && (i > 15)
-        e_block = new_key(array2pack(16.downto(1).collect { |j| data[i - j] }))
+      if (i % 16 == 0) && (i > 15)
+        e_block = if (op == :encrypt)
+                    newkey(array2pack(16.downto(1).collect { |j| ans[i - j] }))
+                  else
+                    newkey(array2pack(16.downto(1).collect { |j| data[i - j] }))
+                  end
       end
-      ans[i]  = e_block[mod] ^ data[i]
+      ans[i]  = e_block[i % 16] ^ data[i]
       ans1[i] = ans[i].chr
     end
     ans1.join('')
   end
 
-  private
-
   # Turn an array into a binary packed string.
-
+  #
+  # @param array [Array] The array to pack.
+  # @return [String] The binary packed representation of the array.
   def array2pack(array)
     array.compact.collect { |val| [val].pack('C*') }.join('')
   end
@@ -101,7 +102,7 @@ class HCE_MD5
   #
   # @param round [String] The basis for the key.
   # @return [String] The new key.
-  def new_key(round)
+  def newkey(round)
     binmd5("#{@key}#{round}").unpack('C*')
   end
 end
