@@ -1,7 +1,7 @@
 HCE_MD5 [![Build Status](https://travis-ci.org/bsv9/hce_md5.svg)](https://travis-ci.org/bsv9/hce_md5) [![Test Coverage](https://codeclimate.com/github/bsv9/hce_md5/badges/coverage.svg)](https://codeclimate.com/github/bsv9/hce_md5/coverage) [![Code Climate](https://codeclimate.com/github/bsv9/hce_md5/badges/gpa.svg)](https://codeclimate.com/github/bsv9/hce_md5)
 ========
 
-Class to emulate Perl's Crypt::HCE_MD5 module
+Ruby class to emulate Perl's Crypt::HCE_MD5 module
 
 The MIME Functions are tested and work symmetrically with the
 Crypt::HCE_MD5 package (0.45) (without the KEYBUG Flag ..).
